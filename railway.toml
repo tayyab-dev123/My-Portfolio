@@ -1,0 +1,27 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install && npm run build"
+
+[deploy]
+startCommand = "npm run start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[phases.setup]
+nixPkgs = ["nodejs", "npm"]
+
+[phases.build]
+cmds = [
+    "npm install",
+    "npm run build"
+]
+
+[phases.deploy]
+cmd = "npm run start"
+
+[env]
+NODE_ENV = "production"
+VITE_APP_ENV = "production"
+PORT = "3000"
